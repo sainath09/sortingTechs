@@ -54,27 +54,25 @@ std::vector<std::float_t> quickSort(std::vector<std::float_t> &sortingArray, int
 
 		swap(sortingArray[i], sortingArray[j]);
 	}
-
 	quickSort(sortingArray, start, j);
 	quickSort(sortingArray, j + 1, end);
 	return sortingArray;
 }
 std::vector<std::float_t> bucketSort(std::vector<std::float_t> &sortingArray, int begin, int end) {
-	int noOfBuckets = end % 10;
+	int noOfBuckets = end / 10;
 	vector<float_t>* b=new vector<float_t>[noOfBuckets];
 	for (int i = 0; i < sortingArray.size(); i++) {
-		int temp = (int)sortingArray[i] % 10;
-		b[temp].push_back(sortingArray[i]);
+		int index = (int)sortingArray[i] / 10;
+		b[index].push_back(sortingArray[i]);
 	}
 	for (int i = 0; i < noOfBuckets; i++) {
 		insertionSort(b[i]);
 	}
-	int index = 0;
 	vector<float_t> sortedArray;
 	for (int i = 0; i < noOfBuckets; i++)
 		for (int j = 0; j < b[i].size(); j++)
 			sortedArray.push_back(b[i][j]);
-	return sortingArray;
+	return sortedArray;
 }
 
 std::vector<std::float_t> shellSort(std::vector<std::float_t> &sortingArray, int begin, int end) {
